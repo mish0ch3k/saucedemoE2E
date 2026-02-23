@@ -1,0 +1,24 @@
+{
+  "baseUrl": "https://www.saucedemo.com/",
+  "products": [
+    "Sauce Labs Backpack",
+    "Sauce Labs Bike Light",
+    "Sauce Labs Fleece Jacket"
+  ],
+  "checkout": {
+    "valid": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "postalCode": "12345"
+    },
+    "invalid": {
+      "firstName": "",
+      "lastName": "Doe",
+      "postalCode": "12345",
+      "expectedError": "Error: First Name is required"
+    }
+  },
+  "messages": {
+    "checkoutComplete": "Thank you for your order!"
+  }
+}
