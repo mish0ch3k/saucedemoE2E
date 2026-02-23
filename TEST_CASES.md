@@ -1,88 +1,88 @@
-# 📝 Тест-кейси: SauceDemo E2E
+# 📝 Test Cases: SauceDemo E2E
 
-## Передумови (для всіх тестів, крім TC5)
-- Відкрита базова URL-адреса: `https://www.saucedemo.com/`
-- Користувач має дійсні облікові дані (`standard_user` / `secret_sauce`).
-
----
-
-### TC1: Перевірка успішної авторизації та переходу на сторінку каталогу
-**Мета:** Перевірити, що користувач із дійсними обліковими даними може успішно увійти в систему.
-
-**Кроки:**
-1. Відкрити сторінку входу.
-2. Ввести дійсний **Username**.
-3. Ввести дійсний **Password**.
-4. Натиснути кнопку **Login**.
-
-**Очікуваний результат:**
-- Користувач успішно авторизується та перенаправляється на сторінку каталогу (URL містить `inventory.html`).
+## Preconditions (for all tests except TC5)
+- Base URL opened: `https://www.saucedemo.com/`
+- User has valid credentials (`standard_user` / `secret_sauce`).
 
 ---
 
-### TC2: Перевірка оновлення лічильника кошика при додаванні товару
-**Мета:** Переконатися, що додавання товару в кошик коректно оновлює лічильник на іконці кошика.  
-*(Примітка: цей тест виконується ітеративно для різних товарів).*
+### TC1: Verify successful login routes to inventory page
+**Objective:** Verify that a user with valid credentials can successfully log in to the system.
 
-**Передумови:** Користувач авторизований і знаходиться на сторінці `inventory.html`.
+**Steps:**
+1. Open the login page.
+2. Enter a valid **Username**.
+3. Enter a valid **Password**.
+4. Click the **Login** button.
 
-**Кроки:**
-1. Знайти картку певного товару (наприклад, "Sauce Labs Backpack").
-2. Натиснути кнопку **Add to cart** на цій картці товару.
-
-**Очікуваний результат:**
-- На іконці кошика у верхньому правому куті з'являється лічильник (badge) із цифрою `1`.
+**Expected Result:**
+- The user successfully logs in and is redirected to the inventory page (URL contains `inventory.html`).
 
 ---
 
-### TC3: Перевірка повного циклу оформлення замовлення (Happy Path)
-**Мета:** Протестувати повний процес замовлення від додавання товару до повідомлення про підтвердження.
+### TC2: Verify cart badge updates when an item is added
+**Objective:** Ensure that adding an item to the cart correctly updates the badge counter on the cart icon.  
+*(Note: this test is executed iteratively for different products).*
 
-**Передумови:** Користувач авторизований і знаходиться на сторінці `inventory.html`.
+**Preconditions:** User is logged in and is on the `inventory.html` page.
 
-**Кроки:**
-1. Натиснути **Add to cart** біля будь-якого товару.
-2. Натиснути на іконку кошика у верхньому правому куті.
-3. На сторінці кошика натиснути **Checkout**.
-4. На сторінці *Checkout: Your Information* заповнити:
+**Steps:**
+1. Find a specific product card (e.g., "Sauce Labs Backpack").
+2. Click the **Add to cart** button on this product card.
+
+**Expected Result:**
+- A badge with the number `1` appears on the cart icon in the top right corner.
+
+---
+
+### TC3: Verify end-to-end checkout journey (Happy Path)
+**Objective:** Test the full order process from adding a product to the confirmation message.
+
+**Preconditions:** User is logged in and is on the `inventory.html` page.
+
+**Steps:**
+1. Click **Add to cart** next to any product.
+2. Click the cart icon in the top right corner.
+3. On the cart page, click **Checkout**.
+4. On the *Checkout: Your Information* page, fill in:
    - First Name
    - Last Name
    - Zip/Postal Code
-5. Натиснути **Continue**.
-6. На сторінці *Checkout: Overview* перевірити деталі замовлення та натиснути **Finish**.
+5. Click **Continue**.
+6. On the *Checkout: Overview* page, verify the order details and click **Finish**.
 
-**Очікуваний результат:**
-- Замовлення успішно завершено, і відображається повідомлення **"Thank you for your order!"**.
+**Expected Result:**
+- The order is successfully completed, and the message **"Thank you for your order!"** is displayed.
 
 ---
 
-### TC4: Перевірка помилки валідації при оформленні замовлення (відсутнє ім'я)
-**Мета:** Підтвердити появу помилки валідації, якщо обов'язкове поле залишено порожнім під час оформлення замовлення (негативний сценарій).
+### TC4: Verify validation error during checkout (missing first name)
+**Objective:** Confirm the appearance of a validation error if a required field is left blank during checkout (negative scenario).
 
-**Передумови:** Користувач авторизований, додав товар до кошика і знаходиться на кроці *Checkout: Your Information*.
+**Preconditions:** User is logged in, has added a product to the cart, and is on the *Checkout: Your Information* step.
 
-**Кроки:**
-1. Залишити поле **First Name** порожнім.
-2. Заповнити поля **Last Name** та **Zip/Postal Code**.
-3. Натиснути **Continue**.
+**Steps:**
+1. Leave the **First Name** field empty.
+2. Fill in the **Last Name** and **Zip/Postal Code** fields.
+3. Click **Continue**.
 
-**Очікуваний результат:**
-- Перехід на наступний крок не відбувається. З'являється повідомлення про помилку:  
+**Expected Result:**
+- Transition to the next step does not occur. An error message appears:  
   **Error: First Name is required.**
 
 ---
 
-### TC5: Перевірка успішного входу та виходу з системи
-**Мета:** Переконатися, що авторизований користувач може безпечно завершити сесію та вийти з облікового запису.
+### TC5: Verify successful login and logout
+**Objective:** Ensure that an authenticated user can safely end the session and log out of the account.
 
-**Передумови:** Відкрита стандартна неавторизована сторінка `https://www.saucedemo.com/`.  
-Кеш і файли cookie очищені.
+**Preconditions:** Standard unauthenticated page `https://www.saucedemo.com/` is opened.  
+Cache and cookies are cleared.
 
-**Кроки:**
-1. Увійти за допомогою дійсних облікових даних.
-2. Після переходу на сторінку каталогу натиснути на **Burger Menu** (три горизонтальні лінії) у верхньому лівому куті.
-3. У меню, що з'явиться, натиснути **Logout**.
+**Steps:**
+1. Log in using valid credentials.
+2. After navigating to the inventory page, click the **Burger Menu** (three horizontal lines) in the top left corner.
+3. In the menu that appears, click **Logout**.
 
-**Очікуваний результат:**
-- Користувач виходить із системи та перенаправляється назад на сторінку входу.  
-  Кнопка **Login** знову стає видимою.
+**Expected Result:**
+- The user logs out of the system and is redirected back to the login page.  
+  The **Login** button becomes visible again.
