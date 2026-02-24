@@ -6,7 +6,10 @@ const testData = typedData as TestData;
 
 test.describe('Saucedemo E2E Test Suite (Authenticated)', () => {
     
-    test.beforeEach(async ({ loggedInPage }) => {
+   test.beforeEach(async ({ loginPage, inventoryPage }) => {
+        await loginPage.navigate();
+        await loginPage.login();
+        await inventoryPage.verifyPageLoaded();
     });
 
     test('TC1: Verify successful login routes to inventory page', async ({ inventoryPage }) => {
@@ -16,10 +19,8 @@ test.describe('Saucedemo E2E Test Suite (Authenticated)', () => {
     for (const product of testData.products) {
         test(`TC2: Verify adding "${product}" to the cart updates the badge`, async ({ inventoryPage }) => {
             await inventoryPage.addProductToCart(product);
-            
             const count = await inventoryPage.getCartBadgeCount();
             expect(count).toBe('1');
-            
             await inventoryPage.removeProductFromCart(product);
         });
     }
